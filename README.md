@@ -1,6 +1,6 @@
 # Acheve.Web.Http.Authorization
 
-In WebApi we have been using the Authorize attribute to authorize users to access the controlers or action methods. In case we wanted fine grained control over authorization with this default attribute we used to specify the Roles or the Users allowed to access the controller or the action method.
+In WebApi we have been using the Authorize attribute to deny not authenticated users to access the controlers or action methods. In case we wanted fine grained control over authorization with this default attribute we used to specify the Roles or the Users allowed to access the controller or the action method.
 
 But this is not enought in the era of the claims identity. In this days the authorization decisions are made based in a different number of claims presented by the current user. In some cases we need to do operations with the values of the claims to decide if the user is authorized or not.
 
