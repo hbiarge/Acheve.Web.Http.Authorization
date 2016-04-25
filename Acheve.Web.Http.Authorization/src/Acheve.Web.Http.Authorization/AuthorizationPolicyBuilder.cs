@@ -11,9 +11,8 @@ namespace Acheve.Web.Http.Authorization
 {
     public class AuthorizationPolicyBuilder
     {
-        public AuthorizationPolicyBuilder(params string[] authenticationSchemes)
+        public AuthorizationPolicyBuilder()
         {
-            AddAuthenticationSchemes(authenticationSchemes);
         }
 
         public AuthorizationPolicyBuilder(AuthorizationPolicy policy)
@@ -22,16 +21,6 @@ namespace Acheve.Web.Http.Authorization
         }
 
         public IList<IAuthorizationRequirement> Requirements { get; set; } = new List<IAuthorizationRequirement>();
-        public IList<string> AuthenticationSchemes { get; set; } = new List<string>();
-
-        public AuthorizationPolicyBuilder AddAuthenticationSchemes(params string[] schemes)
-        {
-            foreach (var authType in schemes)
-            {
-                AuthenticationSchemes.Add(authType);
-            }
-            return this;
-        }
 
         public AuthorizationPolicyBuilder AddRequirements(params IAuthorizationRequirement[] requirements)
         {
@@ -49,7 +38,6 @@ namespace Acheve.Web.Http.Authorization
                 throw new ArgumentNullException(nameof(policy));
             }
 
-            AddAuthenticationSchemes(policy.AuthenticationSchemes.ToArray());
             AddRequirements(policy.Requirements.ToArray());
             return this;
         }
@@ -158,7 +146,7 @@ namespace Acheve.Web.Http.Authorization
 
         public AuthorizationPolicy Build()
         {
-            return new AuthorizationPolicy(Requirements, AuthenticationSchemes.Distinct());
+            return new AuthorizationPolicy(Requirements);
         }
     }
 }

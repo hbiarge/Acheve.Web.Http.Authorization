@@ -9,16 +9,11 @@ namespace Acheve.Web.Http.Authorization
 {
     public class AuthorizationPolicy
     {
-        public AuthorizationPolicy(IEnumerable<IAuthorizationRequirement> requirements, IEnumerable<string> authenticationSchemes)
+        public AuthorizationPolicy(IEnumerable<IAuthorizationRequirement> requirements)
         {
             if (requirements == null)
             {
                 throw new ArgumentNullException(nameof(requirements));
-            }
-
-            if (authenticationSchemes == null)
-            {
-                throw new ArgumentNullException(nameof(authenticationSchemes));
             }
 
             if (requirements.Count() == 0)
@@ -26,12 +21,10 @@ namespace Acheve.Web.Http.Authorization
                 throw new InvalidOperationException("AuthorizationPolicy empty");
             }
             Requirements = new List<IAuthorizationRequirement>(requirements).AsReadOnly();
-            AuthenticationSchemes = new List<string>(authenticationSchemes).AsReadOnly();
         }
 
         public IReadOnlyList<IAuthorizationRequirement> Requirements { get; }
-        public IReadOnlyList<string> AuthenticationSchemes { get; }
-
+        
         public static AuthorizationPolicy Combine(params AuthorizationPolicy[] policies)
         {
             if (policies == null)

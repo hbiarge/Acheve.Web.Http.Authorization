@@ -7,8 +7,7 @@ namespace Sample.Api.Controllers
     [RoutePrefix("values")]
     public class ValuesController : ApiController
     {
-        // Attribute without policy applies the default policy: 
-        // requires authenticated user
+        // Attribute without policy applies the default policy
         [AuthorizePolicy]
         [HttpGet]
         [Route("defaultPolicy")]

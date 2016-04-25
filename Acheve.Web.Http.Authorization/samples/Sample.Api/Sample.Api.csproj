@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Acheve.Web.Http.Authorization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Acheve.Web.Http.Authorization.1.0.1\lib\net45\Acheve.Web.Http.Authorization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
@@ -91,6 +87,10 @@
     <ProjectReference Include="..\..\Acheve.Web.Http.Authorization.Autofac\Acheve.Web.Http.Authorization.Autofac.csproj">
       <Project>{43ddfad1-6681-4b3c-a917-2db4fbbc5474}</Project>
       <Name>Acheve.Web.Http.Authorization.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Acheve.Web.Http.Authorization\Acheve.Web.Http.Authorization.csproj">
+      <Project>{a0e7eeb7-25c0-4f25-a7cd-910fa33ee9e4}</Project>
+      <Name>Acheve.Web.Http.Authorization</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
