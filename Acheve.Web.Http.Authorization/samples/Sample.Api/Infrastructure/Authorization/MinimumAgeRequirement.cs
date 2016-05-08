@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
-using Acheve.Web.Http.Authorization;
+using Microsoft.AspNet.Authorization;
 
 namespace Sample.Api.Infrastructure.Authorization
 {

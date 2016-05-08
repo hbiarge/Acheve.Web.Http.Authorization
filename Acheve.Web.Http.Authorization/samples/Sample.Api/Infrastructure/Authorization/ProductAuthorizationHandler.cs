@@ -1,5 +1,5 @@
-﻿using Acheve.Web.Http.Authorization;
-using Acheve.Web.Http.Authorization.Infrastructure;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Authorization.Infrastructure;
 using Sample.Api.Models;
 using Sample.Api.Services;
 

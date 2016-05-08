@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Acheve.Web.Http.Authorization.Infrastructure;
 using Autofac;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Authorization.Infrastructure;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.OptionsModel;
 
 namespace Acheve.Web.Http.Authorization.Autofac
 {
@@ -19,20 +22,23 @@ namespace Acheve.Web.Http.Authorization.Autofac
                 throw new ArgumentNullException(nameof(optionsConfiguration));
             }
 
-            var authorizationOptions = new AuthorizationOptions();
-            optionsConfiguration(authorizationOptions);
+            var options = new OptionsManager<AuthorizationOptions>(new[]
+            {
+                new ConfigureOptions<AuthorizationOptions>(optionsConfiguration)
+            });
 
-            builder.RegisterInstance(authorizationOptions)
-                .As<AuthorizationOptions>()
+            builder.RegisterInstance(options)
+                .As<IOptions<AuthorizationOptions>>()
                 .SingleInstance()
                 .ExternallyOwned();
 
-            builder.Register(c => new DefaultAuthorizationPolicyProvider(
-                c.Resolve<AuthorizationOptions>())).As<IAuthorizationPolicyProvider>();
+            builder.Register(c => new FakeLogger())
+                .As<ILogger<DefaultAuthorizationService>>();
 
             builder.Register(c => new DefaultAuthorizationService(
-                c.Resolve<IAuthorizationPolicyProvider>(),
-                c.Resolve<IEnumerable<IAuthorizationHandler>>())).As<IAuthorizationService>();
+                c.Resolve<IOptions<AuthorizationOptions>>(),
+                c.Resolve<IEnumerable<IAuthorizationHandler>>(),
+                c.Resolve<ILogger<DefaultAuthorizationService>>())).As<IAuthorizationService>();
 
             builder.Register(c => new PassThroughAuthorizationHandler()).As<IAuthorizationHandler>();
         }

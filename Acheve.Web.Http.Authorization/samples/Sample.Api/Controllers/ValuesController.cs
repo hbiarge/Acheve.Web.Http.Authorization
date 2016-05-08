@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Acheve.Web.Http.Authorization;
 using Sample.Api.Infrastructure.Authorization;
 
 namespace Sample.Api.Controllers
@@ -8,7 +7,7 @@ namespace Sample.Api.Controllers
     public class ValuesController : ApiController
     {
         // Attribute without policy applies the default policy
-        [AuthorizePolicy]
+        [Microsoft.AspNet.Authorization.Authorize]
         [HttpGet]
         [Route("defaultPolicy")]
         public IHttpActionResult DefaultPolicy()
@@ -17,7 +16,7 @@ namespace Sample.Api.Controllers
         }
 
         // Attribute with policy without calculation
-        [AuthorizePolicy(Policies.Sales)]
+        [Microsoft.AspNet.Authorization.Authorize(Policies.Sales)]
         [HttpGet]
         [Route("salesPolicy")]
         public IHttpActionResult SalesPolicy()
@@ -26,7 +25,7 @@ namespace Sample.Api.Controllers
         }
 
         // Attribute with policy with calculations based on user data
-        [AuthorizePolicy(Policies.Over18Years)]
+        [Microsoft.AspNet.Authorization.Authorize(Policies.Over18Years)]
         [HttpGet]
         [Route("over18YearsPolicy")]
         public IHttpActionResult Over18YearsPolicy()

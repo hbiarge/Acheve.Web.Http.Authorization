@@ -1,14 +1,15 @@
 ﻿using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Acheve.Web.Http.Authorization;
+using Microsoft.AspNet.Authorization;
 using Sample.Api.Infrastructure.Authorization;
 using Sample.Api.Models;
 using Sample.Api.Services;
 
 namespace Sample.Api.Controllers
 {
-    [AuthorizePolicy(Policies.Sales)]
+    [Microsoft.AspNet.Authorization.Authorize]
     [RoutePrefix("products")]
     public class ProductsController : ApiController
     {
@@ -70,7 +71,7 @@ namespace Sample.Api.Controllers
 
             var operation = ProductOperations.GiveDiscount(discount);
 
-            if (await _authz.AuthorizeAsync(User, product, operation))
+            if (await _authz.AuthorizeAsync((ClaimsPrincipal)User, product, operation))
             {
                 product.Price -= discount;
                 await _store.UpdateAsync(product);
@@ -100,7 +101,7 @@ namespace Sample.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _authz.AuthorizeAsync(User, product, ProductOperations.Edit))
+                if (await _authz.AuthorizeAsync((ClaimsPrincipal)User, product, ProductOperations.Edit))
                 {
                     await _store.UpdateAsync(product);
                     return Ok(product);

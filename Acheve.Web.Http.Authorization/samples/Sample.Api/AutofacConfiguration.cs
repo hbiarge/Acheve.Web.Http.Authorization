@@ -1,6 +1,6 @@
-﻿using Acheve.Web.Http.Authorization;
-using Autofac;
+﻿using Autofac;
 using Acheve.Web.Http.Authorization.Autofac;
+using Microsoft.AspNet.Authorization;
 using Sample.Api.Infrastructure.Authorization;
 using Sample.Api.Services;
 
@@ -19,7 +19,7 @@ namespace Sample.Api
                 });
                 options.AddPolicy(Policies.Over18Years, policy =>
                 {
-                    policy.Requirements.Add(new MinimumAgeRequirement(18));
+                    policy.AddRequirements(new MinimumAgeRequirement(18));
                 });
             });
 

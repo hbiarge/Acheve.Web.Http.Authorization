@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Security.Claims;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Acheve.Owin.Testing.Security;
 using Autofac;
 using Autofac.Integration.WebApi;
