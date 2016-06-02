@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
+using Microsoft.Extensions.Options;
 
 namespace Acheve.Web.Http.Authorization.Autofac
 {
@@ -35,8 +35,11 @@ namespace Acheve.Web.Http.Authorization.Autofac
             builder.Register(c => new FakeLogger())
                 .As<ILogger<DefaultAuthorizationService>>();
 
+            builder.Register(c => new DefaultAuthorizationPolicyProvider(
+                c.Resolve<IOptions<AuthorizationOptions>>())).As<IAuthorizationPolicyProvider>();
+
             builder.Register(c => new DefaultAuthorizationService(
-                c.Resolve<IOptions<AuthorizationOptions>>(),
+                c.Resolve<IAuthorizationPolicyProvider>(),
                 c.Resolve<IEnumerable<IAuthorizationHandler>>(),
                 c.Resolve<ILogger<DefaultAuthorizationService>>())).As<IAuthorizationService>();
 

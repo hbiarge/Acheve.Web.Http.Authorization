@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Acheve.Web.Http.Authorization.Autofac;
-using Microsoft.AspNet.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Sample.Api.Infrastructure.Authorization;
 using Sample.Api.Services;
 

@@ -2,14 +2,14 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.AspNet.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Sample.Api.Infrastructure.Authorization;
 using Sample.Api.Models;
 using Sample.Api.Services;
 
 namespace Sample.Api.Controllers
 {
-    [Microsoft.AspNet.Authorization.Authorize]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     [RoutePrefix("products")]
     public class ProductsController : ApiController
     {

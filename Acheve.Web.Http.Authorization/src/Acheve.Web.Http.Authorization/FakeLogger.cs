@@ -1,12 +1,12 @@
 ﻿using System;
-using Microsoft.AspNet.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace Acheve.Web.Http.Authorization
 {
     public class FakeLogger : ILogger<DefaultAuthorizationService>
     {
-        public void Log(LogLevel logLevel, int eventId, object state, Exception exception, Func<object, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
         }
 
@@ -15,7 +15,7 @@ namespace Acheve.Web.Http.Authorization
             return false;
         }
 
-        public IDisposable BeginScopeImpl(object state)
+        public IDisposable BeginScope<TState>(TState state)
         {
             return new NoOpDisposable();
         }
